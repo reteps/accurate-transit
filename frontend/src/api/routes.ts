@@ -1,4 +1,4 @@
-import { BusRoute } from 'types/Bus';
+import { BusRoute, BusStation } from 'types/Bus';
 
 // todo: use actual api endpoint
 const ENDPOINT = '#';
@@ -27,4 +27,28 @@ export async function getAllBusRoutes(): Promise<BusRoute[]> {
       color: '#c0c0c0',
     },
   ];
+}
+
+
+export async function _getAllStations(): Promise<BusStation[]> {
+  return [
+    {
+      name: 'Bus Stop 1',
+      lat: 40.117434,
+      long: -88.233839,
+      id: '1',
+    },
+    {
+      name: 'Bus Stop 2',
+      lat: 40.110444,
+      long: -88.238665,
+      id: '2',
+    },
+    {
+      name: 'Bus Stop 3',
+      lat: 40.105396,
+      long: -88.232558,
+      id: '3',
+    },
+  ]
 }

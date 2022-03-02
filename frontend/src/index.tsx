@@ -5,11 +5,15 @@ import './index.css';
 import Routes from './routes';
 import reportWebVitals from './reportWebVitals';
 
+
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <div className="max-w-screen-sm m-auto">
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
