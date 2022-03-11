@@ -1,6 +1,9 @@
 import { BusRoute, BusStation } from 'types/Bus';
 import { getAllBusRoutes, _getAllStations } from 'api/routes';
 
+import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
+// todo fix map types
+
 export async function getStationsNearMe(): Promise<BusStation[]> {
   const stations = await _getAllStations();
   // todo: sort by distance up to a threshold
@@ -28,6 +31,31 @@ export async function getAllStations(): Promise<BusStation[]> {
 
   return stations
 }
+
+export async function getAllStationsMap(): Promise<any> {
+  const stations = await _getAllStations();
+  const obj = {
+    "type": "FeatureCollection",
+    "features": stations.map(station => {
+      return {
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [
+            station.long,
+            station.lat
+          ]
+        },
+        properties: {
+          name: station.name,
+          id: station.id
+        }
+      }
+    })
+  }
+  return obj
+}
+
 
 export async function getBusInfo(id: string): Promise<BusRoute | undefined> {
   const routes = await getAllBusRoutes();
