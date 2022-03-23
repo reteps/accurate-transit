@@ -1,5 +1,5 @@
-import { BusRoute, BusStation } from 'types/Bus';
-import { getAllBusRoutes, _getAllStations } from 'api/routes';
+import { BusRoute, BusStation, StationStop } from 'types/Bus';
+import { getAllBusRoutes, _getAllStations,_getNextBusesAtStation } from 'api/routes';
 
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
 // todo fix map types
@@ -30,6 +30,12 @@ export async function getAllStations(): Promise<BusStation[]> {
   const stations = await _getAllStations();
 
   return stations
+}
+
+export async function getNextBusesAtStation(stationId: string): Promise<StationStop[]> {
+  const stops = await _getNextBusesAtStation(stationId);
+
+  return stops
 }
 
 export async function getAllStationsMap(): Promise<any> {

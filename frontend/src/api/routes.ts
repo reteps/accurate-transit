@@ -1,4 +1,4 @@
-import { BusRoute, BusStation } from 'types/Bus';
+import { BusRoute, BusStation, StationStop } from 'types/Bus';
 
 // todo: use actual api endpoint
 const ENDPOINT = '#';
@@ -51,4 +51,37 @@ export async function _getAllStations(): Promise<BusStation[]> {
       id: '3',
     },
   ]
+}
+
+export async function _getNextBusesAtStation(stationId: string): Promise<StationStop[]> {
+
+  /*
+  This ideally hits an API endpoint /api/station/<id>
+  */
+
+  const mocked = [
+    {
+      bus_id: '1',
+      cumtd_utc: 1648018937,
+      predicted_utc: 1648018937,
+    },
+    {
+      cumtd_utc: 1648018997,
+      predicted_utc: 1648018995,
+      bus_id: '2',
+    },
+    {
+      cumtd_utc: 1648018837,
+      predicted_utc: 1648018840,
+      bus_id: '3',
+    },
+  ]
+
+  if (stationId === '1') {
+    return [mocked[0], mocked[1]]
+  } else if (stationId === '2') {
+    return [mocked[1], mocked[2]]
+  } else {
+    return [mocked[2], mocked[3]]
+  }
 }
