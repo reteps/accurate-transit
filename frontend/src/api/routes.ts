@@ -37,18 +37,29 @@ export async function _getAllStations(): Promise<BusStation[]> {
       lat: 40.117434,
       long: -88.233839,
       id: '1',
+      buses: [],
     },
     {
       name: 'Bus Stop 2',
       lat: 40.110444,
       long: -88.238665,
       id: '2',
+      buses: [],
     },
     {
       name: 'Bus Stop 3',
       lat: 40.105396,
       long: -88.232558,
       id: '3',
+      buses: [],
     },
   ]
+}
+
+export async function _getStationStatistics(): Promise<BusStation[]> {
+  return [];
+}
+
+export async function _getStationHistoricalData(fromUtc: number, toUtc: number): Promise<BusStation[]> {
+  return [];
 }

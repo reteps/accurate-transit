@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getBusInfo } from 'util/bus';
 import { BusRoute } from 'types/Bus';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 export default function Bus() {
   const [busInfo, setBusInfo] = useState<BusRoute | null>(null);
@@ -37,6 +37,7 @@ export default function Bus() {
 
   return (
     <div>
+      <Link to="/overview">Back</Link>
       <h1>
         Bus: {busInfo.id} {busInfo.name}
       </h1>
