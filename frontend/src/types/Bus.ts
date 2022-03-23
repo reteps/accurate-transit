@@ -14,8 +14,14 @@ export type BusRoute = {
 
 export type BusStation = {
   id: BusStationId;
-  lat: number,
-  long: number,
-  name: string
+  lat: number;
+  long: number;
+  name: string;
   buses: BusRouteId[];
-}
+};
+
+export type StationStop = {
+  bus_id: string;
+  cumtd_utc: number;
+  predicted_utc: number;
+};
