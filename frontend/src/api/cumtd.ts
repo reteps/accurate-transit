@@ -16,10 +16,19 @@ async function _rawApiCall<T>(
   endpoint: string,
   params: object
 ): Promise<CumtdApiResponse<T>> {
-  const apiKey = process.env.REACT_APP_CUMTD_API_KEY || '';
-  const res = await fetch(
-    `${_baseUrl}/${endpoint}?key=${apiKey}&${JSON.stringify(params)}`
+  // for testing only
+  const apiKey = new URLSearchParams(window.location.search).get('apikey') || '';
+  // delete undefined params
+  const filteredParams = Object.fromEntries(
+    Object.entries(params).filter(([_, v]) => v !== undefined)
   );
+  const paramsString = new URLSearchParams({
+    key: apiKey,
+    ...filteredParams,
+  }).toString();
+  const url = `${_baseUrl}/${endpoint}?${paramsString}`;
+  console.log('Querying', url);
+  const res = await fetch(url);
   const json = await res.json();
   if (json.status.code !== 200) {
     throw new Error(json.status.msg);
@@ -37,11 +46,11 @@ async function _rawApiCall<T>(
  * @param pt Preview time in minutes. 0-60. Default 30
  * @param count Number of results to return. Default is returning all
  */
-async function getDeparturesByStop(
+async function getDeparturesByStopCumtd(
   stop_id: string,
   route_id: string[] = [],
   pt: number = 30,
-  count: number
+  count?: number
 ): Promise<BusDeparture[]> {
   const res = await _rawApiCall<{ departures: BusDeparture[] }>(
     'getdeparturesbystop',
@@ -62,10 +71,10 @@ async function getDeparturesByStop(
  * @param lon Longitude
  * @param count Number of results to return. Default is returning all
  */
-async function getStopsByLatLon(
+async function getStopsByLatLonCumtd(
   lat: number,
   lon: number,
-  count: number
+  count?: number
 ): Promise<BusStop[]> {
   const res = await _rawApiCall<{ stops: BusStop[] }>('getstopsbylatlon', {
     lat,
@@ -74,3 +83,5 @@ async function getStopsByLatLon(
   });
   return res.stops;
 }
+
+export { getDeparturesByStopCumtd, getStopsByLatLonCumtd };

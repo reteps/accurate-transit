@@ -138,7 +138,7 @@ type BusVehicle = {
  */
 type BusDeparture = {
   stop_id: string;
-  headsign: string;
+  headsign: string; // text displayed on bus (e.g. "5E Green")
   route: BusRoute;
   trip: BusTrip;
   vehicle_id: string;

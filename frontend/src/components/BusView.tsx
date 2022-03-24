@@ -1,29 +1,31 @@
 import { useState, useEffect } from 'react';
-import { BusRouteOld, BusStationOld } from 'types/bus';
+import { BusDeparture, BusStop } from 'types/bus';
 import BusList from 'components/BusList';
-import { getStationsNearMe, getBusesNearStation } from 'util/bus';
+import { getStopsNearMe, getDeparturesByStop } from 'util/bus';
 import BusSelector from './BusSelector';
 
 export default function BusView() {
-  const [buses, setBuses] = useState<BusRouteOld[]>([]);
-  const [stations, setStations] = useState<BusStationOld[]>([]);
+  const [buses, setBuses] = useState<BusDeparture[]>([]);
+  const [stops, setStops] = useState<BusStop[]>([]);
 
   useEffect(() => {
-    getStationsNearMe().then(setStations);
-  }, [setStations]);
+    getStopsNearMe().then(setStops);
+  }, [setStops]);
 
   useEffect(() => {
-    if (stations.length > 0) {
-      getBusesNearStation(stations[0]).then(setBuses);
+    if (stops.length > 0) {
+      getDeparturesByStop(stops[0]?.stop_id).then(setBuses);
     }
-  }, [setBuses, stations]);
+  }, [setBuses, stops]);
 
   return (
     <div className="border-2 border-black">
       <h1>BusView</h1>
       <BusSelector
-        stations={stations}
-        onSelect={station => getBusesNearStation(station).then(setBuses)}
+        stops={stops}
+        onSelect={station =>
+          getDeparturesByStop(station.stop_id).then(setBuses)
+        }
       />
       <BusList buses={buses} />
     </div>

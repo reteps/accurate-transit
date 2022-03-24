@@ -1,30 +1,28 @@
 import { useState } from 'react';
-import { BusStationOld } from 'types/bus';
+import { BusStop } from 'types/bus';
 
 export interface BusSelectorProps {
-  stations: BusStationOld[];
-  onSelect: (station: BusStationOld) => void;
+  stops: BusStop[];
+  onSelect: (stop: BusStop) => void;
 }
 
-export default function BusSelector({ stations, onSelect }: BusSelectorProps) {
-  const [selectedStation, setSelectedStation] = useState<BusStationOld>(
-    stations[0]
-  );
+export default function BusSelector({ stops, onSelect }: BusSelectorProps) {
+  const [selectedStop, setSelectedStop] = useState<BusStop>(stops[0]);
   return (
     <div>
       <select
-        value={selectedStation?.id}
+        value={selectedStop?.stop_id}
         onChange={e => {
-          const station = stations.filter(
-            s => s.id === e.currentTarget.value
+          const stop = stops.filter(
+            s => s.stop_id === e.currentTarget.value
           )[0];
-          setSelectedStation(station);
-          onSelect(station);
+          setSelectedStop(stop);
+          onSelect(stop);
         }}
       >
-        {stations.map(station => (
-          <option key={station.id} value={station.id}>
-            {station.name}
+        {stops.map(stop => (
+          <option key={stop.stop_id} value={stop.stop_id}>
+            {stop.stop_name}
           </option>
         ))}
       </select>
