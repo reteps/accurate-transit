@@ -1,22 +1,22 @@
-import { BusRoute, BusStation, StationStop } from 'types/Bus';
+import { BusRouteOld, BusStationOld, StationStopOld } from 'types/bus';
 import { getAllBusRoutes, _getAllStations,_getNextBusesAtStation } from 'api/routes';
 
 import { FeatureCollection, Geometry, GeoJsonProperties } from "geojson";
 // todo fix map types
 
-export async function getStationsNearMe(): Promise<BusStation[]> {
+export async function getStationsNearMe(): Promise<BusStationOld[]> {
   const stations = await _getAllStations();
   // todo: sort by distance up to a threshold
   return stations;
 }
 
-export async function getBusesNearMe(): Promise<BusRoute[]> {
+export async function getBusesNearMe(): Promise<BusRouteOld[]> {
   const routes = await getAllBusRoutes();
   // todo: filter by distance
   return routes;
 }
 
-export async function getBusesNearStation(station: BusStation): Promise<BusRoute[]> {
+export async function getBusesNearStation(station: BusStationOld): Promise<BusRouteOld[]> {
   const routes = await getAllBusRoutes();
   // todo: filter near station
   if (Number(station.id) <= 3) {
@@ -26,13 +26,13 @@ export async function getBusesNearStation(station: BusStation): Promise<BusRoute
   return routes.slice(0, 1);
 }
 
-export async function getAllStations(): Promise<BusStation[]> {
+export async function getAllStations(): Promise<BusStationOld[]> {
   const stations = await _getAllStations();
 
   return stations
 }
 
-export async function getNextBusesAtStation(stationId: string): Promise<StationStop[]> {
+export async function getNextBusesAtStation(stationId: string): Promise<StationStopOld[]> {
   const stops = await _getNextBusesAtStation(stationId);
 
   return stops
@@ -63,7 +63,7 @@ export async function getAllStationsMap(): Promise<any> {
 }
 
 
-export async function getBusInfo(id: string): Promise<BusRoute | undefined> {
+export async function getBusInfo(id: string): Promise<BusRouteOld | undefined> {
   const routes = await getAllBusRoutes();
   const route = routes.find(r => r.id === id);
   return route;

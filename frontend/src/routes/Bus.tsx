@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getBusInfo } from 'util/bus';
-import { BusRoute } from 'types/Bus';
+import { BusRouteOld } from 'types/bus';
 import { useParams, Link } from 'react-router-dom';
 
 export default function Bus() {
-  const [busInfo, setBusInfo] = useState<BusRoute | null>(null);
+  const [busInfo, setBusInfo] = useState<BusRouteOld | null>(null);
   const [isBusNotFound, setIsBusNotFound] = useState(false);
   let { busId } = useParams() as { busId: string };
 

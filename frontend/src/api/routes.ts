@@ -1,9 +1,9 @@
-import { BusRoute, BusStation, StationStop } from 'types/Bus';
+import { BusRouteOld, BusStationOld, StationStopOld } from 'types/bus';
 
 // todo: use actual api endpoint
 const ENDPOINT = '#';
 
-export async function getAllBusRoutes(): Promise<BusRoute[]> {
+export async function getAllBusRoutes(): Promise<BusRouteOld[]> {
   // how it would look once we have an api endpoint
   /*
   const response = await fetch(ENDPOINT);
@@ -30,7 +30,7 @@ export async function getAllBusRoutes(): Promise<BusRoute[]> {
 }
 
 
-export async function _getAllStations(): Promise<BusStation[]> {
+export async function _getAllStations(): Promise<BusStationOld[]> {
   return [
     {
       name: 'Bus Stop 1',
@@ -56,7 +56,7 @@ export async function _getAllStations(): Promise<BusStation[]> {
   ]
 }
 
-export async function _getNextBusesAtStation(stationId: string): Promise<StationStop[]> {
+export async function _getNextBusesAtStation(stationId: string): Promise<StationStopOld[]> {
 
   /*
   This ideally hits an API endpoint /api/station/<id>

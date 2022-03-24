@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { BusStation } from 'types/Bus';
+import { BusStationOld } from 'types/bus';
 import { getAllStationsMap } from 'util/bus';
 import { MapEventType } from 'mapbox-gl'
 // https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/

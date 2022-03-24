@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { BusRoute, BusStation } from 'types/Bus';
+import { BusRouteOld, BusStationOld } from 'types/bus';
 import BusList from 'components/BusList';
 import { getStationsNearMe, getBusesNearStation } from 'util/bus';
 import BusSelector from './BusSelector';
 
 export default function BusView() {
-  const [buses, setBuses] = useState<BusRoute[]>([]);
-  const [stations, setStations] = useState<BusStation[]>([]);
+  const [buses, setBuses] = useState<BusRouteOld[]>([]);
+  const [stations, setStations] = useState<BusStationOld[]>([]);
 
   useEffect(() => {
     getStationsNearMe().then(setStations);

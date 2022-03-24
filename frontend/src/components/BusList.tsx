@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { BusRoute } from 'types/Bus';
+import { BusRouteOld } from 'types/bus';
 
 export interface BusListProps {
-  buses: BusRoute[];
+  buses: BusRouteOld[];
 }
 
 export default function BusList({ buses }: BusListProps) {
@@ -16,7 +16,7 @@ export default function BusList({ buses }: BusListProps) {
 }
 
 interface BusListItemProps {
-  bus: BusRoute;
+  bus: BusRouteOld;
 }
 
 function BusListItem({ bus }: BusListItemProps) {

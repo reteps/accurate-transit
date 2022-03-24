@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { BusStation } from 'types/Bus';
+import { BusStationOld } from 'types/bus';
 
 export interface BusSelectorProps {
-  stations: BusStation[];
-  onSelect: (station: BusStation) => void;
+  stations: BusStationOld[];
+  onSelect: (station: BusStationOld) => void;
 }
 
 export default function BusSelector({ stations, onSelect }: BusSelectorProps) {
-  const [selectedStation, setSelectedStation] = useState<BusStation>(
+  const [selectedStation, setSelectedStation] = useState<BusStationOld>(
     stations[0]
   );
   return (
