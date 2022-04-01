@@ -20,17 +20,17 @@ interface BusListItemProps {
 }
 
 function BusListItem({ bus }: BusListItemProps) {
-  console.log(bus);
   return (
     <div
       style={{
         backgroundColor: '#' + bus.route.route_color,
         color: '#' + bus.route.route_text_color,
       }}
+      className='mx-1 my-1 px-2 py-1 border-4 border-transparent rounded hover:border-black'
     >
-      <Link to={`/bus/${bus.route.route_id}`}>
-        <h2>Bus List Item</h2>
-        <p>{bus.headsign}</p>
+      <Link to={`/bus/${bus.stop_id}/${bus.vehicle_id}`}>
+        <h2>{bus.headsign}</h2>
+        <p>{bus.expected_mins} mins</p>
       </Link>
     </div>
   );

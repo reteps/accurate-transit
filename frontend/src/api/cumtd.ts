@@ -16,8 +16,12 @@ async function _rawApiCall<T>(
   endpoint: string,
   params: object
 ): Promise<CumtdApiResponse<T>> {
-  // for testing only
-  const apiKey = new URLSearchParams(window.location.search).get('apikey') || '';
+  // get key from local storage for testing only
+  const apiKey = window.localStorage.getItem('cumtdApiKey');
+  if (apiKey === null) {
+    console.error('Please set a CUMTD API key in localStorage with the command: localStorage.setItem("cumtdApiKey", "your_api_key");');
+    throw new Error('No API key found in local storage');
+  }
   // delete undefined params
   const filteredParams = Object.fromEntries(
     Object.entries(params).filter(([_, v]) => v !== undefined)
@@ -27,7 +31,6 @@ async function _rawApiCall<T>(
     ...filteredParams,
   }).toString();
   const url = `${_baseUrl}/${endpoint}?${paramsString}`;
-  console.log('Querying', url);
   const res = await fetch(url);
   const json = await res.json();
   if (json.status.code !== 200) {

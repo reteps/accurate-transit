@@ -153,7 +153,7 @@ type BusDeparture = {
   is_istop: boolean; // if this trip can be boarded without a fare/pass ("istop")
   scheduled: string;
   expected: string;
-  expected_min: number;
+  expected_mins: number;
   location: Location;
 };
 

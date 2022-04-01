@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { getBusInfo } from 'util/bus';
-import { BusRouteOld } from 'types/bus';
+import { BusDeparture } from 'types/bus';
 import { useParams, Link } from 'react-router-dom';
 
 export default function Bus() {
-  const [busInfo, setBusInfo] = useState<BusRouteOld | null>(null);
+  const [busInfo, setBusInfo] = useState<BusDeparture | null>(null);
   const [isBusNotFound, setIsBusNotFound] = useState(false);
-  let { busId } = useParams() as { busId: string };
+  let { busId, stopId } = useParams() as { busId: string; stopId: string };
 
   useEffect(() => {
-    getBusInfo(busId).then(maybeBusInfo => {
+    getBusInfo(busId, stopId).then(maybeBusInfo => {
       if (maybeBusInfo) {
         setBusInfo(maybeBusInfo);
       } else {
@@ -25,22 +25,41 @@ export default function Bus() {
         <p>
           ID: <code>{busId}</code>
         </p>
-        <p>
-          The bus you are looking for does not exist.
-        </p>
+        <p>The bus you are looking for does not exist.</p>
       </div>
     );
   }
   if (busInfo === null) {
     return <h1>Loading...</h1>;
   }
+  console.log(busInfo);
 
   return (
     <div>
-      <Link to="/overview">Back</Link>
-      <h1>
-        Bus: {busInfo.id} {busInfo.name}
-      </h1>
+      <div className="flex items-center py-6">
+        <Link to="/overview">
+          <div className="flex-none p-2 rounded border-2 border-gray hover:bg-black hover:text-white hover:border-transparent transition">
+            Back
+          </div>
+        </Link>
+        <h1 className="flex-auto mx-4 text-3xl">{busInfo.headsign}</h1>
+      </div>
+      <div className="flex items-center">
+        <div
+          style={{
+            backgroundColor: '#' + busInfo.route.route_color,
+            color: '#' + busInfo.route.route_text_color,
+            width: 50,
+            height: 50,
+          }}
+          className="flex items-center rounded-full"
+        >
+          <div className="m-auto">
+            {busInfo.route.route_short_name + busInfo.trip.direction[0]}
+          </div>
+        </div>
+        <p className="ml-4">Departs in {busInfo.expected_mins} minutes.</p>
+      </div>
     </div>
   );
 }

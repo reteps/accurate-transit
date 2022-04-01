@@ -55,31 +55,33 @@ export async function getNextBusesAtStation(
   return stops;
 }
 
-export async function getAllStationsMap(): Promise<any> {
-  const stations = await _getAllStations();
+export function busDepartureToGeoJson(bus: BusDeparture): any {
   const obj = {
     type: 'FeatureCollection',
-    features: stations.map(station => {
-      return {
+    features: [
+      {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [station.long, station.lat],
+          coordinates: [bus.location.lon, bus.location.lat],
         },
         properties: {
-          name: station.name,
-          id: station.id,
+          name: bus.headsign,
+          id: bus.vehicle_id,
         },
-      };
-    }),
+      },
+    ],
   };
   return obj;
 }
 
-export async function getBusInfo(id: string): Promise<BusRouteOld | undefined> {
-  const routes = await getAllBusRoutes();
-  const route = routes.find(r => r.id === id);
-  return route;
+export async function getBusInfo(
+  vehicleId: string,
+  stopId: string
+): Promise<BusDeparture | null> {
+  const stops = await getDeparturesByStop(stopId);
+  const stop = stops.find(stop => stop.vehicle_id === vehicleId) || null;
+  return stop;
 }
 
 async function getDeparturesByStop(stop_id: string): Promise<BusDeparture[]> {
@@ -87,4 +89,4 @@ async function getDeparturesByStop(stop_id: string): Promise<BusDeparture[]> {
   return stops;
 }
 
-export { getDeparturesByStop }
+export { getDeparturesByStop };
