@@ -10,7 +10,7 @@ export default function Routes() {
     <RouteWrapper>
       <Route path="/" element={<Home />} />
       <Route path="/overview" element={<Overview />} />
-      <Route path="/bus/:stopId/:busId" element={<Bus />} />
+      <Route path="/bus/:stopId/:vehicleId" element={<Bus />} />
       <Route path="*" element={<NotFound />} />
     </RouteWrapper>
   );

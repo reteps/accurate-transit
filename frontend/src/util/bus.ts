@@ -5,7 +5,9 @@ import {
   BusDeparture,
   BusStop,
 } from 'types/bus';
+import { History } from 'types/historical';
 import { getCurrentLocation } from 'api/location';
+import { _getHistoryDaily } from 'api/historical';
 import {
   getAllBusRoutes,
   _getAllStations,
@@ -89,4 +91,13 @@ async function getDeparturesByStop(stop_id: string): Promise<BusDeparture[]> {
   return stops;
 }
 
-export { getDeparturesByStop };
+async function getDailyHistory(
+  vehicleId: string,
+  stopId: string,
+  startDate: string,
+  endDate: string
+): Promise<History[]> {
+  return await _getHistoryDaily(vehicleId, stopId, startDate, endDate);
+}
+
+export { getDeparturesByStop, getDailyHistory };

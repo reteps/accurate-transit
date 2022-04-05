@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
-import { getBusInfo } from 'util/bus';
+import { getBusInfo, getDailyHistory } from 'util/bus';
 import { BusDeparture } from 'types/bus';
 import { useParams, Link } from 'react-router-dom';
-
+import { History } from 'types/historical';
 export default function Bus() {
   const [busInfo, setBusInfo] = useState<BusDeparture | null>(null);
+  const [dailyHistory, setDailyHistory] = useState<History[]>([]);
   const [isBusNotFound, setIsBusNotFound] = useState(false);
-  let { busId, stopId } = useParams() as { busId: string; stopId: string };
+  let { vehicleId, stopId } = useParams() as { vehicleId: string; stopId: string };
 
   useEffect(() => {
-    getBusInfo(busId, stopId).then(maybeBusInfo => {
+    getBusInfo(vehicleId, stopId).then(maybeBusInfo => {
       if (maybeBusInfo) {
         setBusInfo(maybeBusInfo);
       } else {
@@ -18,12 +19,20 @@ export default function Bus() {
     });
   }, []);
 
+  useEffect(() => {
+    const endDate = new Date();
+    let startDate = new Date();
+    // go back 7 days
+    startDate.setDate(endDate.getDate() - 7);
+    getDailyHistory(vehicleId, stopId, startDate.toString(), endDate.toString()).then(setDailyHistory);
+  }, []);
+
   if (isBusNotFound) {
     return (
       <div>
         <h1>Bus not found</h1>
         <p>
-          ID: <code>{busId}</code>
+          ID: <code>{vehicleId}</code>
         </p>
         <p>The bus you are looking for does not exist.</p>
       </div>
@@ -59,6 +68,13 @@ export default function Bus() {
           </div>
         </div>
         <p className="ml-4">Departs in {busInfo.expected_mins} minutes.</p>
+      </div>
+      <div>
+        <h2 className="text-xl m-2">Historical Stops</h2>
+        {dailyHistory.map(h => {
+return <div>{h.last_updated}
+  </div>
+        })}
       </div>
     </div>
   );
