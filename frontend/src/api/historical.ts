@@ -11,7 +11,6 @@ function fakeHistoryDaily(sample: BusDeparture, numResults: number): History[] {
     const offset = randomMins * 60 * 1000;
     const dayOffset = i*24*60*60*1000;
     const tweakedTime = new Date((new Date(sample.scheduled)).getTime() + (offset - dayOffset));
-    console.log(tweakedTime)
 
     return {
       vehicle_id: sample.vehicle_id,

@@ -5,7 +5,7 @@
 import { CumtdApiResponse } from 'types/cumtd';
 import { BusDeparture, BusStop } from 'types/bus';
 
-const _baseUrl = 'https://developer.cumtd.com/api/v2.2/json';
+const _baseUrl = 'http://localhost:3001/cumtd';
 
 /**
  * Internal function to make CUMTD API calls.
@@ -16,20 +16,11 @@ async function _rawApiCall<T>(
   endpoint: string,
   params: object
 ): Promise<CumtdApiResponse<T>> {
-  // get key from local storage for testing only
-  const apiKey = window.localStorage.getItem('cumtdApiKey');
-  if (apiKey === null) {
-    console.error('Please set a CUMTD API key in localStorage with the command: localStorage.setItem("cumtdApiKey", "your_api_key");');
-    throw new Error('No API key found in local storage');
-  }
   // delete undefined params
   const filteredParams = Object.fromEntries(
     Object.entries(params).filter(([_, v]) => v !== undefined)
   );
-  const paramsString = new URLSearchParams({
-    key: apiKey,
-    ...filteredParams,
-  }).toString();
+  const paramsString = new URLSearchParams(filteredParams).toString();
   const url = `${_baseUrl}/${endpoint}?${paramsString}`;
   const res = await fetch(url);
   const json = await res.json();

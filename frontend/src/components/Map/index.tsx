@@ -40,7 +40,7 @@ export default function Map({ stop, buses }: MapProps) {
 
     buses.forEach(bus =>
       map.addLayer({
-        id: `bus_${bus.vehicle_id}`,
+        id: `bus_${bus.trip.trip_id}`,
         type: 'circle',
         /* Add a GeoJSON source containing place coordinates and information. */
         source: {
