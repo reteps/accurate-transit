@@ -26,9 +26,9 @@ function BusListItem({ bus }: BusListItemProps) {
         backgroundColor: '#' + bus.route.route_color,
         color: '#' + bus.route.route_text_color,
       }}
-      className='mx-1 my-1 px-2 py-1 border-4 border-transparent rounded hover:border-black'
+      className="mx-1 my-1 px-2 py-1 border-4 border-transparent rounded hover:border-black"
     >
-      <Link to={`/bus/${bus.stop_id}/${bus.vehicle_id}`}>
+      <Link to={`/bus/${bus.stop_id}/${bus.vehicle_id}`} className="bus-link">
         <h2>{bus.headsign}</h2>
         <p>{bus.expected_mins} mins</p>
       </Link>
