@@ -28,7 +28,7 @@ test('busDepartureToGeoJson returns a valid result', async () => {
   }
   const result = await busDepartureToGeoJson(mock);
 
-  expect(result).toBe(expect.anything())
+  expect(result).toEqual(expect.anything())
   expect(result.features[0].geometry.coordinates[0]).toBe(mock.location.lon)
   expect(result.features[0].geometry.coordinates[1]).toBe(mock.location.lat)
 });

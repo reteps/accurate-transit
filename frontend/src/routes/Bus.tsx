@@ -7,7 +7,10 @@ export default function Bus() {
   const [busInfo, setBusInfo] = useState<BusDeparture | null>(null);
   const [dailyHistory, setDailyHistory] = useState<History[]>([]);
   const [isBusNotFound, setIsBusNotFound] = useState(false);
-  let { vehicleId, stopId } = useParams() as { vehicleId: string; stopId: string };
+  let { vehicleId, stopId } = useParams() as {
+    vehicleId: string;
+    stopId: string;
+  };
 
   useEffect(() => {
     getBusInfo(vehicleId, stopId).then(maybeBusInfo => {
@@ -24,7 +27,12 @@ export default function Bus() {
     let startDate = new Date();
     // go back 7 days
     startDate.setDate(endDate.getDate() - 7);
-    getDailyHistory(vehicleId, stopId, startDate.toString(), endDate.toString()).then(setDailyHistory);
+    getDailyHistory(
+      vehicleId,
+      stopId,
+      startDate.toString(),
+      endDate.toString()
+    ).then(setDailyHistory);
   }, []);
 
   if (isBusNotFound) {
@@ -41,7 +49,6 @@ export default function Bus() {
   if (busInfo === null) {
     return <h1>Loading...</h1>;
   }
-  console.log(busInfo);
 
   return (
     <div>
@@ -71,10 +78,9 @@ export default function Bus() {
       </div>
       <div>
         <h2 className="text-xl m-2">Historical Stops</h2>
-        {dailyHistory.map(h => {
-return <div>{h.last_updated}
-  </div>
-        })}
+        {dailyHistory.map(h => (
+          <div key={h.trip.trip_id + h.last_updated}>{h.last_updated}</div>
+        ))}
       </div>
     </div>
   );
