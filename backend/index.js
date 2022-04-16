@@ -7,8 +7,7 @@ const app = express();
 const port = 3001;
 
 const corsOptions = {
-  // only allow requests from the localhost for local testing
-  origin: 'http://localhost:3000',
+  origin: '*',
   optionsSuccessStatus: 200,
 };
 
