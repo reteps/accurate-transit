@@ -1,1 +1,1 @@
-export const backendURL = 'http://172.22.125.241:3001/cumtd';
+export const backendURL = 'http://localhost:3001/cumtd';
