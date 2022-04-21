@@ -19,13 +19,6 @@ app.get('/cumtd/:endpoint', cors(corsOptions), (req, res) => {
   const endpoint = req.params.endpoint;
   const query = req.query;
   console.log(`CUMTD request: ${endpoint} ${JSON.stringify(query)}`);
-
-  // testing bypass
-  if (process.env.CUMTD_API_KEY === 'TEST') {
-    res.send('');
-    return;
-  }
-
   handleCumtd(endpoint, query, res);
 });
 

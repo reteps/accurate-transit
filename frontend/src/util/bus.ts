@@ -4,9 +4,6 @@ import { getCurrentLocation } from 'api/location';
 import { _getHistoryDaily } from 'api/historical';
 import { getDeparturesByStopCumtd, getStopsByLatLonCumtd } from 'api/cumtd';
 
-import { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
-// todo fix map types
-
 async function getStopsNearMe(): Promise<BusStop[]> {
   const location = await getCurrentLocation();
   const stops = await getStopsByLatLonCumtd(location.lat, location.lon);
