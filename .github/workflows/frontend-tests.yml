@@ -1,0 +1,52 @@
+name: Frontend Tests
+
+on:
+  push:
+    paths: 
+      - 'frontend/**'
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'frontend/**'
+
+jobs:
+  frontend-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn test
+
+  e2e-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Run cypress tests
+        uses: cypress-io/github-action@v2
+        with:
+          headless: true
+          # at the root folder
+          start: ./cypress_test.sh
+          wait-on: 'http://localhost:3000,http://localhost:3001'
+          working-directory: frontend
+        env:
+          # CUMTD_API_KEY: ${{ secrets.CUMTD_API_KEY }}
+          CUMTD_API_KEY: 'TEST'
+
