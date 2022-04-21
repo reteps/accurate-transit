@@ -4,11 +4,13 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - 'backend/**'
   pull_request:
     branches:
       - master
     paths:
       - 'frontend/**'
+      - 'backend/**'
 
 jobs:
   frontend-test:
@@ -50,5 +52,3 @@ jobs:
           wait-on: 'http://localhost:3000,http://localhost:3001'
         env:
           CUMTD_API_KEY: ${{ secrets.CUMTD_API_KEY }}
-          # CUMTD_API_KEY: 'TEST'
-

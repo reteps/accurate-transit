@@ -20,7 +20,7 @@ export default function Bus() {
         setIsBusNotFound(true);
       }
     });
-  }, []);
+  }, [vehicleId, stopId]);
 
   useEffect(() => {
     const endDate = new Date();
@@ -33,7 +33,7 @@ export default function Bus() {
       startDate.toString(),
       endDate.toString()
     ).then(setDailyHistory);
-  }, []);
+  }, [stopId, vehicleId]);
 
   if (isBusNotFound) {
     return (

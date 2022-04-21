@@ -16,6 +16,7 @@ yarn install
 
 # start the backend
 yarn start &
+sleep 1
 
 # build the frontend
 cd ../frontend
