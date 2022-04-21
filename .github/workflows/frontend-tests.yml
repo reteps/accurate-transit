@@ -50,5 +50,6 @@ jobs:
           # in frontend folder
           start: 'bash cypress_test.sh'
           wait-on: 'http://localhost:3000,http://localhost:3001'
+          wait-on-timeout: 30
         env:
           CUMTD_API_KEY: ${{ secrets.CUMTD_API_KEY }}

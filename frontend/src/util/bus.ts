@@ -15,7 +15,7 @@ import {
 } from 'api/routes';
 import { getDeparturesByStopCumtd, getStopsByLatLonCumtd } from 'api/cumtd';
 
-async function getStopsNearMe(): Promise<BusStop[]> {
+export async function getStopsNearMe(): Promise<BusStop[]> {
   const location = await getCurrentLocation();
   const stops = await getStopsByLatLonCumtd(location.lat, location.lon);
   // todo: sort by distance up to a threshold
