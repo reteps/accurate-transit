@@ -2,7 +2,6 @@
 
 # Called by the github action to build and run the frontend and backend for the
 # cypress test
-
 # Requires CUMTD_API_KEY to be set in the environment
 
 # Should be run in this (frontend) directory
