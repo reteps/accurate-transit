@@ -1,63 +1,20 @@
-import {
-  BusRouteOld,
-  BusStationOld,
-  StationStopOld,
-  BusDeparture,
-  BusStop,
-} from 'types/bus';
+import { BusDeparture, BusStop } from 'types/bus';
 import { History } from 'types/historical';
 import { getCurrentLocation } from 'api/location';
 import { _getHistoryDaily } from 'api/historical';
-import {
-  getAllBusRoutes,
-  _getAllStations,
-  _getNextBusesAtStation,
-} from 'api/routes';
 import { getDeparturesByStopCumtd, getStopsByLatLonCumtd } from 'api/cumtd';
 
 import { FeatureCollection, Geometry, GeoJsonProperties } from 'geojson';
 // todo fix map types
 
-export async function getStopsNearMe(): Promise<BusStop[]> {
+async function getStopsNearMe(): Promise<BusStop[]> {
   const location = await getCurrentLocation();
   const stops = await getStopsByLatLonCumtd(location.lat, location.lon);
   // todo: sort by distance up to a threshold
   return stops;
 }
 
-export async function getBusesNearMe(): Promise<BusRouteOld[]> {
-  const routes = await getAllBusRoutes();
-  // todo: filter by distance
-  return routes;
-}
-
-export async function getBusesNearStation(
-  station: BusStationOld
-): Promise<BusRouteOld[]> {
-  const routes = await getAllBusRoutes();
-  // todo: filter near station
-  if (Number(station.id) <= 3) {
-    // this is just some example code
-    return routes.slice(Number(station.id) - 1, Number(station.id));
-  }
-  return routes.slice(0, 1);
-}
-
-export async function getAllStations(): Promise<BusStationOld[]> {
-  const stations = await _getAllStations();
-
-  return stations;
-}
-
-export async function getNextBusesAtStation(
-  stationId: string
-): Promise<StationStopOld[]> {
-  const stops = await _getNextBusesAtStation(stationId);
-
-  return stops;
-}
-
-export function busDepartureToGeoJson(bus: BusDeparture): any {
+function busDepartureToGeoJson(bus: BusDeparture): any {
   const obj = {
     type: 'FeatureCollection',
     features: [
@@ -77,7 +34,7 @@ export function busDepartureToGeoJson(bus: BusDeparture): any {
   return obj;
 }
 
-export async function getBusInfo(
+async function getBusInfo(
   vehicleId: string,
   stopId: string
 ): Promise<BusDeparture | null> {
@@ -100,4 +57,10 @@ async function getDailyHistory(
   return await _getHistoryDaily(vehicleId, stopId, startDate, endDate);
 }
 
-export { getDeparturesByStop, getDailyHistory };
+export {
+  getStopsNearMe,
+  busDepartureToGeoJson,
+  getBusInfo,
+  getDeparturesByStop,
+  getDailyHistory,
+};
