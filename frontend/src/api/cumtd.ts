@@ -4,8 +4,7 @@
 
 import { CumtdApiResponse } from 'types/cumtd';
 import { BusDeparture, BusStop } from 'types/bus';
-import { backendURL } from 'api/endpoints'
-
+import { backendURL } from 'api/endpoints';
 
 /**
  * Internal function to make CUMTD API calls.

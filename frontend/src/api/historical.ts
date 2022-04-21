@@ -1,7 +1,6 @@
-import { History } from 'types/historical'
+import { History } from 'types/historical';
 import { BusDeparture } from 'types/bus';
 import { getBusInfo } from 'util/bus';
-
 
 function fakeHistoryDaily(sample: BusDeparture, numResults: number): History[] {
   // add += random minutes to centerTime, set this as last_updated field
@@ -9,15 +8,17 @@ function fakeHistoryDaily(sample: BusDeparture, numResults: number): History[] {
     const randomMins = Math.floor(Math.random() * 10) - 5;
 
     const offset = randomMins * 60 * 1000;
-    const dayOffset = i*24*60*60*1000;
-    const tweakedTime = new Date((new Date(sample.scheduled)).getTime() + (offset - dayOffset));
+    const dayOffset = i * 24 * 60 * 60 * 1000;
+    const tweakedTime = new Date(
+      new Date(sample.scheduled).getTime() + (offset - dayOffset)
+    );
 
     return {
       vehicle_id: sample.vehicle_id,
       trip: sample.trip,
       location: sample.location,
       last_updated: tweakedTime.toString(),
-    }
+    };
   });
 }
 
