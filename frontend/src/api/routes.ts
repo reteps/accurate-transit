@@ -1,8 +1,5 @@
 import { BusRouteOld, BusStationOld, StationStopOld } from 'types/bus';
 
-// todo: use actual api endpoint
-const ENDPOINT = '#';
-
 export async function getAllBusRoutes(): Promise<BusRouteOld[]> {
   // how it would look once we have an api endpoint
   /*
