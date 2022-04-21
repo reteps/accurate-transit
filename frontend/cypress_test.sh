@@ -5,14 +5,11 @@
 
 # Requires CUMTD_API_KEY to be set in the environment
 
+# Should be run in this (frontend) directory
+
 set -ex
 
 npm i -g yarn
-
-# build the frontend
-cd frontend
-yarn install
-yarn build
 
 # build the backend
 cd ../backend
@@ -20,6 +17,11 @@ yarn install
 
 # start the backend
 yarn start &
-# start the frontend
+
+# build the frontend
 cd ../frontend
+yarn install
+yarn build
+
+# start the frontend
 yarn start

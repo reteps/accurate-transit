@@ -2,7 +2,7 @@ name: Frontend Tests
 
 on:
   push:
-    paths: 
+    paths:
       - 'frontend/**'
   pull_request:
     branches:
@@ -34,6 +34,8 @@ jobs:
   e2e-test:
     runs-on: ubuntu-latest
 
+    timeout-minutes: 10
+
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v3
@@ -41,11 +43,11 @@ jobs:
       - name: Run cypress tests
         uses: cypress-io/github-action@v2
         with:
+          working-directory: frontend
           headless: true
-          # at the root folder
+          # in frontend folder
           start: ./cypress_test.sh
           wait-on: 'http://localhost:3000,http://localhost:3001'
-          working-directory: frontend
         env:
           # CUMTD_API_KEY: ${{ secrets.CUMTD_API_KEY }}
           CUMTD_API_KEY: 'TEST'
