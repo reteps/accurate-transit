@@ -4,8 +4,7 @@
 
 import { CumtdApiResponse } from 'types/cumtd';
 import { BusDeparture, BusStop } from 'types/bus';
-
-const _baseUrl = 'http://localhost:3001/cumtd';
+import { backendURL } from 'api/endpoints';
 
 /**
  * Internal function to make CUMTD API calls.
@@ -21,7 +20,7 @@ async function _rawApiCall<T>(
     Object.entries(params).filter(([_, v]) => v !== undefined)
   );
   const paramsString = new URLSearchParams(filteredParams).toString();
-  const url = `${_baseUrl}/${endpoint}?${paramsString}`;
+  const url = `${backendURL}/${endpoint}?${paramsString}`;
   const res = await fetch(url);
   const json = await res.json();
   if (json.status.code !== 200) {

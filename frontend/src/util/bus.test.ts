@@ -1,5 +1,5 @@
 import { BusDeparture, BusRoute, BusTrip } from 'types/bus';
-import { busDepartureToGeoJson } from './bus'
+import { busDepartureToGeoJson } from './bus';
 
 test('busDepartureToGeoJson returns a valid result', async () => {
   const mock: BusDeparture = {
@@ -23,14 +23,13 @@ test('busDepartureToGeoJson returns a valid result', async () => {
     location: {
       lat: 0,
       lon: 1,
-    }
-
-  }
+    },
+  };
   const result = await busDepartureToGeoJson(mock);
 
-  expect(result).toEqual(expect.anything())
-  expect(result.features[0].geometry.coordinates[0]).toBe(mock.location.lon)
-  expect(result.features[0].geometry.coordinates[1]).toBe(mock.location.lat)
+  expect(result).toEqual(expect.anything());
+  expect(result.features[0].geometry.coordinates[0]).toBe(mock.location.lon);
+  expect(result.features[0].geometry.coordinates[1]).toBe(mock.location.lat);
 });
 
-export { }
+export {};

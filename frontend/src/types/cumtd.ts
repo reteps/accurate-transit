@@ -3,7 +3,7 @@
  */
 
 // parameterized by response data type
-type CumtdApiResponse<T> =  {
+type CumtdApiResponse<T> = {
   changeset_id: string;
   new_changeset?: boolean;
   time: string;
@@ -18,6 +18,6 @@ type CumtdApiResponse<T> =  {
 } & {
   // This also contains the data. However, the shape of it is variable.
   [Key in keyof T]: T[Key];
-}
+};
 
 export type { CumtdApiResponse };

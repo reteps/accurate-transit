@@ -4,34 +4,6 @@
  * Overview:
  */
 
-/* Begin old types */
-
-type BusRouteId = string;
-type BusStationId = string;
-
-// in UI
-export type BusRouteOld = {
-  id: BusRouteId;
-  name: string; // route name
-  color: string;
-};
-
-export type BusStationOld = {
-  id: BusStationId;
-  lat: number;
-  long: number;
-  name: string;
-  buses: BusRouteId[];
-};
-
-export type StationStopOld = {
-  bus_id: string;
-  cumtd_utc: number;
-  predicted_utc: number;
-};
-
-/* End old types */
-
 /**
  * These types correspond with the CUMTD API types
  * See: https://developer.cumtd.com/documentation/v2.2/definitions/

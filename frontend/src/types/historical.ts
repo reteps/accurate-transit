@@ -1,4 +1,4 @@
-import { BusTrip, Location } from "./bus";
+import { BusTrip, Location } from './bus';
 
 type History = {
   vehicle_id: string;
