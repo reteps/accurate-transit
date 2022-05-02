@@ -33,5 +33,7 @@ def generate_knn():
             pickle.dump(diffs, f)
 
     return diffs
-diffs = generate_knn()
 
+if __name__ == '__main__':
+    diffs = generate_knn()
+    app.run(host='0.0.0.0', port=5001)
