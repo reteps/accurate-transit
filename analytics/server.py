@@ -17,7 +17,7 @@ def timeToBusAtStop(tripID, stopID):
     try:
         deltas = diffs.deltas[tripID][stopID]
         time_deltas = [x for _, x in deltas]
-        return str(pd.Series(time_deltas).median())
+        return str(int(pd.Series(time_deltas).median()))
     except:
         return "Invalid trip ID or stop ID", 400
 
