@@ -10,8 +10,8 @@ import tqdm
 import pydantic
 
 class KNNModel(pydantic.BaseModel):
-    mean_latency: float
-    max_latency: float
+    # mean_latency: float
+    # max_latency: float
     deltas: dict
 
 def accumulate_diffs(diffs, timeseries: pd.DataFrame) -> Dict:
@@ -53,8 +53,8 @@ def generate_deltas(responses: pd.DataFrame) -> KNNModel:
         trip_diffs = accumulate_diffs(trip_diffs, responses_sorted[responses_sorted["trip_id"] == trip_id])
 
     return KNNModel(
-        mean_latency=latency.mean(),
-        max_latency=latency.max(),
+        # mean_latency=float(latency.mean()),
+        # max_latency=float(latency.max()),
         deltas = trip_diffs
     )
 
