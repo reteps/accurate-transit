@@ -1,2 +1,2 @@
-export FLASK_APP=tttAnalytics
+export FLASK_APP=server
 flask run -p 5001
