@@ -16,8 +16,9 @@ def root():
 @app.route('/trip/<tripID>/stop/<stopID>')
 def timeToBusAtStop(tripID, stopID):
     try:
-        delta = diffs.deltas[tripID][stopID]
-        return delta
+        deltas = diffs.deltas[tripID][stopID]
+        time_deltas = [x for _, x in deltas]
+        return pd.Series(time_deltas).median()
     except:
         return "Invalid trip ID or stop ID", 400
 
