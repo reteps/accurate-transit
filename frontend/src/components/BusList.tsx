@@ -30,7 +30,8 @@ function BusListItem({ bus }: BusListItemProps) {
     >
       <Link to={`/bus/${bus.stop_id}/${bus.vehicle_id}`} className="bus-link">
         <h2>{bus.headsign}</h2>
-        <p>{bus.expected_mins} mins</p>
+        <p>Scheduled: {bus.expected_mins} mins</p>
+        {bus.predicted_mins >= 0 && <p>Predicted: {bus.predicted_mins} mins</p>}
       </Link>
     </div>
   );

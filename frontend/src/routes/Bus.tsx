@@ -74,7 +74,10 @@ export default function Bus() {
             {busInfo.route.route_short_name + busInfo.trip.direction[0]}
           </div>
         </div>
-        <p className="ml-4">Departs in {busInfo.expected_mins} minutes.</p>
+        <p className="ml-4">
+          Scheduled in {busInfo.expected_mins} minutes.
+          {busInfo.predicted_mins >= 0 && ` Predicted in ${busInfo.predicted_mins} mins`}
+        </p>
       </div>
       <div>
         <h2 className="text-xl m-2">Historical Stops</h2>

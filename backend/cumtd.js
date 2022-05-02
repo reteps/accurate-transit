@@ -3,10 +3,13 @@
  */
 
 import https from 'https';
+import http from 'http';
 import querystring from 'querystring';
 
 // CUMTD API URL
 const CUMTD_API_URL = 'https://developer.cumtd.com/api/v2.2/json';
+
+const FLASK_API_URL = 'http://10.195.254.165:5001';
 
 // For security reasons, only whitelisted endpoints are allowed.
 // This is a map of the allowed endpoint to the list of allowed parameters.
@@ -14,6 +17,41 @@ const validEndpoints = {
   getdeparturesbystop: ['stop_id', 'route_id', 'pt', 'count'],
   getstopsbylatlon: ['lat', 'lon', 'count'],
 };
+
+async function requestPrediction(departures, source_stop) {
+  for (let i = 0; i < departures.length; i++) {
+    const departure = departures[i];
+    const stop_id = departure.stop_id;
+    source_stop = 'PAMD:2';
+    const url = `${FLASK_API_URL}/trip/${source_stop}/stop/${stop_id}`;
+
+    try {
+      departures[i].predicted_mins = await (new Promise((resolve, reject) => {
+        http.get(url, response => {
+          // Handle errors.
+          if (response.statusCode !== 200) {
+            reject('Invalid response from Flask API. ' + response.statusCode);
+            return;
+          }
+
+          // Read the response.
+          let body = '';
+          response.on('data', chunk => {
+            body += chunk;
+          });
+          response.on('end', () => {
+            resolve(Math.floor(Number(body)/60));
+          });
+        });
+      }));
+    } catch (err) {
+      departures[i].predicted_mins = -1;
+      console.log(err);
+    }
+  }
+
+  return departures;
+}
 
 // Handle a request to the CUMTD API.
 function handleCumtd(endpoint, query, res) {
@@ -58,8 +96,15 @@ function handleCumtd(endpoint, query, res) {
         return;
       }
 
-      // Send the response.
-      res.send(body);
+      if (body.departures) {
+        requestPrediction(body.departures, query.stop_id).then(newDepartures => {
+          body.departures = newDepartures;
+          res.send(body);
+        });
+      } else {
+        // Send the response.
+        res.send(body);
+      }
     });
   });
 }

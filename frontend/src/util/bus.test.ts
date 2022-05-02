@@ -24,6 +24,7 @@ test('busDepartureToGeoJson returns a valid result', async () => {
       lat: 0,
       lon: 1,
     },
+    predicted_mins: 0,
   };
   const result = await busDepartureToGeoJson(mock);
 

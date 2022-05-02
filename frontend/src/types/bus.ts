@@ -127,6 +127,7 @@ type BusDeparture = {
   expected: string;
   expected_mins: number;
   location: Location;
+  predicted_mins: number;
 };
 
 export type {
