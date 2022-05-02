@@ -13,7 +13,7 @@ def root():
 
 @app.route('/trip/<tripID>/stop/<stopID>')
 def timeToBusAtStop(tripID, stopID):
-    diffs = deltas.generate_deltas(analyze.generate_entries())
+    diffs = deltas.generate_deltas(analyze.generate_df())
     try:
         delta = diffs.deltas[tripID][stopID]
         return delta

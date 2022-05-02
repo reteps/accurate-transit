@@ -27,9 +27,8 @@ def generate_entries():
                 pass
 
 
-def generate_csv():
-    df = pd.DataFrame(generate_entries())
-    df.to_csv("scrape/responses.csv")
+def generate_df():
+    return pd.DataFrame(generate_entries())
 
 if __name__ == "__main__":
     generate_csv()
