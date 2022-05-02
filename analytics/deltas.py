@@ -40,9 +40,9 @@ def generate_deltas(responses: pd.DataFrame) -> KNNModel:
         responses[f"{col}_t"] = pd.to_datetime(responses[col])
 
     latency = responses["captured_at_t"] - responses["last_updated_t"]
-    points = responses["location"].apply(lambda x: eval(x)).apply(lambda x: shapely.geometry.Point(x["lat"], x["lon"]))
+    # points = responses["location"].apply(lambda x: eval(x)).apply(lambda x: shapely.geometry.Point(x["lat"], x["lon"]))
 
-    responses["geometry"] = gpd.GeoSeries(points)
+    # responses["geometry"] = gpd.GeoSeries(points)
     responses_sorted = responses.sort_values("captured_at")
 
     trip_uids = set(responses_sorted["trip_id"])
